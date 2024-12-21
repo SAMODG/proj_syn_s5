@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une nouvelle Dette{% endblock %}
+
+{% block body %}
+<h1>Créer une nouvelle Dette pour {{ client.surname }}</h1>
+
+{{ form_start(form) }}
+    {{ form_row(form.montant) }}
+    {{ form_row(form.detteArticles) }}
+    <button type="submit" class="btn btn-success">Créer</button>
+{{ form_end(form) }}
+
+<a href="{{ path('client_dettes', {id: client.id}) }}" class="btn btn-secondary">Retour</a>
+{% endblock %}

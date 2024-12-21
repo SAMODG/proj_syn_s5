@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Tableau de Bord Admin</h1>
+
+    <div class="row">
+        <!-- Gestion des Utilisateurs -->
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-body text-center">
+                    <h4>Gestion des Utilisateurs</h4>
+                    <p>Créer, modifier ou supprimer des utilisateurs.</p>
+                    <a href="{{ path('admin_users_list') }}" class="btn btn-primary">Voir les Utilisateurs</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gestion des Articles -->
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-body text-center">
+                    <h4>Gestion des Articles</h4>
+                    <p>Créer, modifier ou supprimer des articles.</p>
+                    <a href="{{ path('admin_articles_list') }}" class="btn btn-success">Voir les Articles</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rapports -->
+        
+    </div>
+</div>
+{% endblock %}

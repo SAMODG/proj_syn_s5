@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une Dette{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Créer une Dette pour {{ client.surname }}</h1>
+
+    <div class="card shadow-sm p-4">
+        {{ form_start(form) }}
+        <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="mb-3">
+            <label for="montant" class="form-label">Montant Total</label>
+            {{ form_widget(form.montant, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="mb-3">
+            <label for="montantVerset" class="form-label">Montant Versé</label>
+            {{ form_widget(form.montantVerset, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="mb-3">
+            <label for="dette_articles" class="form-label">Articles Associés</label>
+            {{ form_widget(form.dette_articles, {'attr': {'class': 'form-select', 'multiple': 'multiple'}}) }}
+        </div>
+        <div class="d-flex justify-content-between">
+            <a href="{{ path('boutiquier_clients') }}" class="btn btn-secondary">Retour</a>
+            <button type="submit" class="btn btn-success">Créer Dette</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

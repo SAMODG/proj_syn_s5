@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Dettes{% endblock %}
+
+{% block body %}
+<h1>Liste des Dettes</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Montant Total</th>
+            <th>Montant Versé</th>
+            <th>Montant Restant</th>
+            <th>Articles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dette in dettes %}
+            <tr>
+                <td>
+                    {% if dette.client %}
+                        {{ dette.client.surname }}
+                    {% else %}
+                        <em>Aucun client</em>
+                    {% endif %}
+                </td>
+                <td>{{ dette.montant }}</td>
+                <td>{{ dette.montantVerset }}</td>
+                <td>{{ dette.montantRestant }}</td>
+                <td>
+                    <ul>
+                        {% if dette.detteArticles is defined %}
+                            {% for article in dette.detteArticles %}
+                                <li>{{ article.nom }}</li>
+                            {% endfor %}
+                        {% else %}
+                            <li><em>Aucun article</em></li>
+                        {% endif %}
+                    </ul>
+                </td>
+                <td>
+                    <a href="{{ path('dette_show', { id: dette.id }) }}">Voir</a> |
+                    <a href="{{ path('dette_edit', { id: dette.id }) }}">Modifier</a> |
+                    <form method="post" action="{{ path('dette_delete', { id: dette.id }) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette dette ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ dette.id) }}">
+                        <button class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('dette_new') }}" class="btn btn-primary">Créer une nouvelle Dette</a>
+{% endblock %}

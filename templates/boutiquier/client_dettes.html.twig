@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dettes pour {{ client.surname }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Informations sur le client -->
+        <div class="col-md-6">
+            <div class="card shadow-sm p-3 mb-4">
+                <div class="d-flex align-items-center">
+                    <img src="{{ asset('images/default-avatar.png') }}" alt="Photo de profil" class="rounded-circle me-3" style="width: 100px; height: 100px;">
+                    <div>
+                        <h5>Prénom: {{ client.surname }}</h5>
+                        <h5>Nom: {{ client.telephone }}</h5>
+                        <h5>Tel: {{ client.telephone }}</h5>
+                        {% if client.user %}
+                            <h5>Email: {{ client.user.email }}</h5>
+                        {% else %}
+                            <h5>Email: Non défini</h5>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Statistiques sur les dettes -->
+        <div class="col-md-6">
+            <div class="card shadow-sm p-3 mb-4 bg-primary text-white">
+                <h5>Montant Total: {{ client.totalMontant|number_format(0, ',', ' ') }} FCFA</h5>
+                <h5>Montant Versé: {{ client.totalVerse|number_format(0, ',', ' ') }} FCFA</h5>
+                <h5>Montant Restant: {{ client.totalRestant|number_format(0, ',', ' ') }} FCFA</h5>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton pour ajouter une nouvelle dette -->
+    <div class="mb-3">
+        <a href="{{ path('boutiquier_dette_new', { id: client.id }) }}" class="btn btn-success">Nouvelle Dette</a>
+    </div>
+
+    <!-- Boutons de filtre pour les dettes -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="#" class="btn btn-danger me-2">Non soldées</a>
+        <a href="#" class="btn btn-primary">Soldées</a>
+    </div>
+
+    <!-- Liste des dettes -->
+    <div class="table-responsive">
+        <h4>Liste des dettes</h4>
+        <table class="table table-striped table-hover">
+            <thead class="bg-primary text-white">
+                <tr>
+                    <th>Date</th>
+                    <th>Montant</th>
+                    <th>Verser</th>
+                    <th>Restant</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dette in dettes %}
+                    <tr>
+                        <td>{{ dette.date|date('d-m-Y') }}</td>
+                        <td>{{ dette.montant|number_format(0, ',', ' ') }} FCFA</td>
+                        <td>{{ dette.montantVerse|number_format(0, ',', ' ') }} FCFA</td>
+                        <td>{{ dette.montantRestant|number_format(0, ',', ' ') }} FCFA</td>
+                        <td>
+                            <a href="{{ path('boutiquier_paiement_new', { id: dette.id }) }}" class="btn btn-primary btn-sm">Détails</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Aucune dette trouvée.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

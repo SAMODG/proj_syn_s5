@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Client{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Espace Client</h1>
+
+    <div class="row">
+        <!-- Mes Dettes -->
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-body text-center">
+                    <h4>Mes Dettes</h4>
+                    <p>Voir l'historique et les détails de vos dettes.</p>
+                    <a href="{{ path('client_dettes') }}" class="btn btn-primary">Voir Mes Dettes</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mes Paiements -->
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-body text-center">
+                    <h4>Mes Paiements</h4>
+                    <p>Voir l'historique et les détails de vos paiements.</p>
+                    <a href="{{ path('client_paiements') }}" class="btn btn-success">Voir Mes Paiements</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacter la Boutique -->
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-body text-center">
+                    <h4>Contact Boutique</h4>
+                    <p>Envoyer un message ou poser une question.</p>
+                    <a href="{{ path('client_contact') }}" class="btn btn-warning">Contacter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

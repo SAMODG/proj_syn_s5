@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des Utilisateurs</h1>
+
+    <!-- Filtrage par rôle et statut -->
+    <form method="get">
+        <label>Filtrer par rôle :</label>
+        <select name="role">
+            <option value="">Tous</option>
+            <option value="ROLE_ADMIN">Admin</option>
+            <option value="ROLE_BOUTIQUIER">Boutiquier</option>
+            <option value="ROLE_CLIENT">Client</option>
+        </select>
+
+        <label>Filtrer par statut :</label>
+        <select name="status">
+            <option value="">Tous</option>
+            <option value="1">Actif</option>
+            <option value="0">Inactif</option>
+        </select>
+
+        <button type="submit">Filtrer</button>
+    </form>
+
+    <hr>
+
+    <!-- Onglet pour créer un compte Admin ou Boutiquier -->
+    <h3>Créer un compte Admin ou Boutiquier</h3>
+    <a href="{{ path('admin_user_create') }}" class="btn btn-primary">Créer un compte</a>
+
+    <hr>
+
+    <!-- Créer un compte utilisateur pour un client -->
+    <h3>Créer un compte utilisateur pour un client</h3>
+    <ul>
+        {% for client in clients %}
+            <li>
+                {{ client.surname }} - {{ client.telephone }}
+                <a href="{{ path('admin_user_create_client', {'id': client.id}) }}">Créer un compte utilisateur</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    <!-- Liste des utilisateurs -->
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles|join(', ') }}</td>
+                    <td>{{ user.isActive ? 'Actif' : 'Inactif' }}</td>
+                    <td>
+                        <form method="post" action="{{ path('admin_user_toggle', {'id': user.id}) }}">
+                            <button type="submit">Activer/Désactiver</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    
+{% endblock %}

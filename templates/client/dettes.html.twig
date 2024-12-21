@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dettes non soldées pour {{ client.surname }}{% endblock %}
+
+{% block body %}
+    <h1>Dettes non soldées pour {{ client.surname }}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Montant Total</th>
+                <th>Montant Versé</th>
+                <th>Montant Restant</th>
+                <th>Articles</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dette in dettes %}
+                <tr>
+                    <td>{{ dette.date|date('Y-m-d') }}</td>
+                    <td>{{ dette.montant }}</td>
+                    <td>{{ dette.montantVerset }}</td>
+                    <td>{{ dette.montantRestant }}</td>
+                    <td>
+                        <ul>
+                            {% for article in dette.detteArticles %}
+                                <li>{{ article.nom }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Aucune dette non soldée trouvée.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('client_dette_new', { id: client.id }) }}">Faire une demande de dette</a> |
+    <a href="{{ path('client_index') }}">Retour à la liste</a>
+{% endblock %}

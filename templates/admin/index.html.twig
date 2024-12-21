@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+<h1>Bienvenue dans le Dashboard Admin</h1>
+<ul>
+    <li><a href="{{ path('admin_users_list') }}">Gérer les utilisateurs</a></li>
+    <li><a href="{{ path('admin_articles_list') }}">Gérer les articles</a></li>
+    <li><a href="{{ path('admin_dettes_archive') }}">Archiver les dettes</a></li>
+</ul>
+{% endblock %}

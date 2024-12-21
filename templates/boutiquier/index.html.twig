@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="my-4">Tableau de Bord</h1>
+
+    <!-- Statistiques -->
+    <div class="row text-white">
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>Total des Dettes</h4>
+                            <p class="h2">{{ totalDettes|number_format(0, ',', ' ') }} CFA</p>
+                            <span>+3.5% depuis le mois dernier</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-money-bill-wave fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>Nombre de Clients</h4>
+                            <p class="h2">{{ nombreClients }}</p>
+                            <span>+5% depuis la semaine dernière</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-users fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm bg-warning text-dark">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>Articles en Stock</h4>
+                            <p class="h2">{{ articlesEnStock }}</p>
+                            <span>-2% depuis hier</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-boxes fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm bg-danger text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>Demandes en Cours</h4>
+                            <p class="h2">{{ demandesEnCours }}</p>
+                            <span>+10% depuis hier</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-exclamation-circle fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tables -->
+    <div class="row">
+        <!-- Clients Table -->
+        <div class="col-md-6">
+            <h3 class="mb-4">Liste des Clients</h3>
+            <div class="card shadow">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>SURNAME</th>
+                                <th>TÉLÉPHONE</th>
+                                <th>MONTANT DETTE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for client in clients %}
+                                <tr>
+                                    <td>{{ client.surname }}</td>
+                                    <td>{{ client.telephone }}</td>
+                                    <td>{{ client.getTotalDettes()|number_format(0, ',', ' ') }} CFA</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center">Aucun client trouvé</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Articles Table -->
+        <div class="col-md-6">
+            <h3 class="mb-4">Articles en Rupture de Stock</h3>
+            <div class="card shadow">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="table-danger">
+                            <tr>
+                                <th>ARTICLE</th>
+                                <th>QUANTITÉ RESTANTE</th>
+                                <th>PRIX</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for article in articlesRupture %}
+                                <tr>
+                                    <td>{{ article.nom }}</td>
+                                    <td>{{ article.qteStock }}</td>
+                                    <td>{{ article.prix|number_format(0, ',', ' ') }} CFA</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center">Aucun article en rupture</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

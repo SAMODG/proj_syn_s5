@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrer un Paiement{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Enregistrer un Paiement pour la Dette #{{ dette.id }}</h1>
+
+    {{ form_start(form) }}
+    <div class="mb-3">
+        {{ form_label(form.montant, 'Montant du Paiement', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.montant, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.montant) }}
+    </div>
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('boutiquier_client_dettes', { id: dette.client.id }) }}" class="btn btn-secondary mt-3">Retour à la Liste des Dettes</a>
+</div>
+{% endblock %}

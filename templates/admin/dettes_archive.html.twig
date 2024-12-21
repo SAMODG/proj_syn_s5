@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Archiver les Dettes Soldées{% endblock %}
+
+{% block body %}
+<h1>Archiver les Dettes Soldées</h1>
+
+<form action="{{ path('admin_dettes_archive') }}" method="POST" style="display:inline;">
+    <button type="submit" class="btn btn-danger">Archiver les dettes soldées</button>
+</form>
+
+{% endblock %}

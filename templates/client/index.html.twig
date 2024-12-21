@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Clients{% endblock %}
+
+{% block body %}
+<h1>Liste des Clients</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Téléphone</th>
+            <th>Adresse</th>
+            <th>Actions</th>
+            <th>Dettes Non Soldées</th> {# Nouvelle colonne #}
+        </tr>
+    </thead>
+    <tbody>
+        {% for client in clients %}
+            <tr>
+                <td>{{ client.surname }}</td>
+                <td>{{ client.telephone }}</td>
+                <td>
+                    {{ client.adresse.rue }}, {{ client.adresse.ville }}
+                </td>
+                <td>
+                    <a href="{{ path('client_show', { id: client.id }) }}">Voir</a> |
+                    <a href="{{ path('client_edit', { id: client.id }) }}">Modifier</a> |
+                    <form method="post" action="{{ path('client_delete', { id: client.id }) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ client.id) }}">
+                        <button class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
+                </td>
+                <td>
+                    <a href="{{ path('client_dettes', { id: client.id }) }}" class="btn btn-warning btn-sm">
+                        Voir Dettes
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('client_new') }}" class="btn btn-primary">Créer un nouveau client</a>
+{% endblock %}

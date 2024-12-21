@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la Dette{% endblock %}
+
+{% block body %}
+<h1>Détails de la Dette</h1>
+
+<p><strong>Client :</strong> {{ dette.client.surname }}</p>
+<p><strong>Montant Total :</strong> {{ dette.montant }}</p>
+<p><strong>Montant Versé :</strong> {{ dette.montantVerset }}</p>
+<p><strong>Montant Restant :</strong> {{ dette.montantRestant }}</p>
+
+<h3>Articles associés</h3>
+<ul>
+    {% for article in dette.detteArticles %}
+        <li>{{ article.nom }} (Quantité : {{ article.qteStock }})</li>
+    {% endfor %}
+</ul>
+
+<a href="{{ path('dette_index') }}" class="btn btn-secondary">Retour à la liste</a>
+<a href="{{ path('dette_edit', { id: dette.id }) }}" class="btn btn-primary">Modifier</a>
+{% endblock %}

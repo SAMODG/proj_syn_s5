@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du Client{% endblock %}
+
+{% block body %}
+<h1>Détails du Client</h1>
+
+<p><strong>Nom :</strong> {{ client.surname }}</p>
+<p><strong>Téléphone :</strong> {{ client.telephone }}</p>
+
+<a href="{{ path('client_index') }}" class="btn btn-secondary">Retour à la liste</a>
+<a href="{{ path('client_edit', { id: client.id }) }}" class="btn btn-primary">Modifier</a>
+{% endblock %}

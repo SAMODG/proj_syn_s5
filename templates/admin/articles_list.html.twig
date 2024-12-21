@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des Articles</h1>
+
+    <!-- Filtrer par disponibilité -->
+    <form method="get" style="margin-bottom: 20px;">
+        <label>Afficher seulement les articles disponibles :</label>
+        <select name="disponible">
+            <option value="">Tous</option>
+            <option value="1">Disponible (Stock > 0)</option>
+        </select>
+        <button type="submit">Filtrer</button>
+    </form>
+
+    <!-- Bouton pour créer un nouvel article -->
+    <a href="{{ path('admin_article_new') }}" class="btn btn-primary" style="margin-bottom: 20px;">
+        Créer un nouvel article
+    </a>
+
+    <!-- Tableau des articles -->
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Quantité en Stock</th>
+                <th>Prix</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.nom }}</td>
+                    <td>{{ article.qteStock }}</td>
+                    <td>{{ article.prix }} €</td>
+                    <td>
+                        <!-- Modifier -->
+                        <a href="{{ path('admin_article_edit', {'id': article.id}) }}" class="btn btn-warning">
+                            Modifier
+                        </a>
+
+                        <!-- Supprimer -->
+                        <form method="post" action="{{ path('admin_article_delete', {'id': article.id}) }}" style="display: inline;">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer cet article ?');">
+                                Supprimer
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucun article trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rechercher un Client{% endblock %}
+
+{% block body %}
+<h1>Rechercher un Client par Téléphone</h1>
+
+<form method="get" class="form-inline">
+    <input type="text" name="telephone" class="form-control mr-2" placeholder="Téléphone" value="{{ searchTerm }}">
+    <button type="submit" class="btn btn-primary">Rechercher</button>
+</form>
+
+{% if clients is not empty %}
+    <h2 class="mt-3">Résultats :</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Téléphone</th>
+                <th>Adresse</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.surname }}</td>
+                    <td>{{ client.telephone }}</td>
+                    <td>{{ client.adresse ? client.adresse.rue ~ ', ' ~ client.adresse.ville : 'N/A' }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Aucun résultat trouvé.</p>
+{% endif %}
+<a href="{{ path('boutiquier_clients') }}" class="btn btn-secondary mt-3">Retour</a>
+{% endblock %}
